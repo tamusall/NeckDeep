@@ -14,7 +14,8 @@ const cancer = ['!play https://www.youtube.com/watch?v=-uynAoB9B4Y',
   '!play https://www.youtube.com/watch?v=83gnPZP45kA&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=4',
   '!play https://www.youtube.com/watch?v=gRsW4cvZiBM&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=3',
   '!play https://www.youtube.com/watch?v=UMafbMlmA5s&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=12',
-  '!play https://www.youtube.com/watch?v=AFkxA5Ae8KQ&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=16'];
+  '!play https://www.youtube.com/watch?v=AFkxA5Ae8KQ&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=16',
+  '!play https://www.youtube.com/watch?v=h0urA0GZZjI&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=24'];
 
 client.once('ready', () => {
   console.log('ready');
@@ -46,7 +47,7 @@ client.on('message', (message) => {
     for (const [channelKey, channelValue] of channels.entries()) {
       if (channelValue.type === 'voice') {
         if (channelValue.members.size >= 1) {
-          let random = Math.random() * 100000;
+          let random = Math.random() * 1000000;
           console.log(random);
           setInterval(() => {
             let randomIndex = getRandomInt(4);
