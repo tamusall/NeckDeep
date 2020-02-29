@@ -50,7 +50,7 @@ client.on('message', (message) => {
           let random = Math.random() * 1000000;
           console.log(random);
           setInterval(() => {
-            let randomIndex = getRandomInt(4);
+            let randomIndex = getRandomInt(cancer.length + 1);
             message.content = cancer[randomIndex];
             console.log(randomIndex);
             channelValue.join()
