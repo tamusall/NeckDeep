@@ -10,7 +10,11 @@ const ytdl = require('ytdl-core');
 const client = new Discord.Client();
 
 const queue = new Map();
-const cancer = '!play https://www.youtube.com/watch?v=-uynAoB9B4Y';
+const cancer = ['!play https://www.youtube.com/watch?v=-uynAoB9B4Y',
+  '!play https://www.youtube.com/watch?v=83gnPZP45kA&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=4',
+  '!play https://www.youtube.com/watch?v=gRsW4cvZiBM&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=3',
+  '!play https://www.youtube.com/watch?v=UMafbMlmA5s&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=12',
+  '!play https://www.youtube.com/watch?v=AFkxA5Ae8KQ&list=PLCh1FZ00v9uDTvloj01cfvfvoj-gsxQsA&index=16'];
 
 client.once('ready', () => {
   console.log('ready');
@@ -25,8 +29,16 @@ client.once('disconnect', () => {
 });
 
 client.on('message', (message) => {
+  if (message.author.id === '191544331058806784') {
+    if (message.content === 'lifes not out to get you') {
+      message.delete()
+        .catch(console.error);
+    }
+  }
+});
+
+client.on('message', (message) => {
   if (message.content === 'lifes not out to get you') {
-    message.content = cancer;
     const channels = client.channels;
 
     const serverQueue = queue.get(message.guild.id);
@@ -34,9 +46,12 @@ client.on('message', (message) => {
     for (const [channelKey, channelValue] of channels.entries()) {
       if (channelValue.type === 'voice') {
         if (channelValue.members.size >= 1) {
-          let random = Math.random() * 1000000;
+          let random = Math.random() * 100000;
           console.log(random);
           setInterval(() => {
+            let randomIndex = getRandomInt(4);
+            message.content = cancer[randomIndex];
+            console.log(randomIndex);
             channelValue.join()
               .catch(console.error);
             setTimeout(() => {
@@ -116,6 +131,10 @@ function play(guild, song) {
       console.error(error);
     });
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
 }
 
 client.login(process.env.BOT_TOKEN);
